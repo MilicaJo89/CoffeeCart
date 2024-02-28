@@ -1,5 +1,6 @@
 package Util;
 
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -7,13 +8,17 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
+
+
+
 
 public class Methods extends Paths {
 
@@ -22,8 +27,9 @@ public class Methods extends Paths {
 
     String filePath = "C:\\Users\\milicaj\\IdeaProjects\\CoffeeCart\\src\\test\\java\\config.properties";
 
-    public void Setup (){
+    public static  final Logger logger = Logger.getLogger("MyLogger");
 
+    public void Setup () {
         System.setProperty("webdriver.geckodriver", "\"C:\\Users\\milicaj\\Downloads\\geckodriver.exe\"");
         driver = new FirefoxDriver();
         driver.get("https://coffee-cart.app/");
@@ -34,6 +40,7 @@ public class Methods extends Paths {
             wait.until(visibilityOf(driver.findElement(xpath))).click();
     }
     public void ElementisPresent(By xpath) {
+
         wait.until(visibilityOf(driver.findElement(xpath))).isDisplayed();
     }
     public void DoubleClick(By xpath){
