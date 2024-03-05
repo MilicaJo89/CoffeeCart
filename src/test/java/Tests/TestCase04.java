@@ -2,13 +2,14 @@ package Tests;
 
 import Util.Methods;
 import org.testng.annotations.Test;
-
 import java.io.IOException;
 
 public class TestCase04 extends Methods {
 
 
+
     @Test
+
     public void Test04 () throws IOException {
 
         logger.info("Opening coffee cart app web page");

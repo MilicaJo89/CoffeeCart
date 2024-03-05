@@ -1,14 +1,15 @@
 package Util;
 
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.events.WebDriverListener;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.Duration;
@@ -20,14 +21,13 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
 
 
-public class Methods extends Paths {
+public class Methods extends Paths implements WebDriverListener {
 
     WebDriver driver;
     WebDriverWait wait;
-
     String filePath = "C:\\Users\\milicaj\\IdeaProjects\\CoffeeCart\\src\\test\\java\\config.properties";
-
     public static  final Logger logger = Logger.getLogger("MyLogger");
+
 
     public void Setup () {
         System.setProperty("webdriver.geckodriver", "\"C:\\Users\\milicaj\\Downloads\\geckodriver.exe\"");
@@ -62,5 +62,12 @@ public class Methods extends Paths {
         type.isDisplayed();
         type.isEnabled();
         type.sendKeys(text);
+    }
+    @AfterMethod
+    public void FailTakeScreenshot(ITestResult result) throws IOException {
+        if (ITestResult.FAILURE == result.getStatus()) {
+            File screenshotfile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            FileUtils.copyFile(screenshotfile, new File("C:\\Users\\milicaj\\Pictures\\Screenshots\\Failure.png"));
+        }
     }
 }
